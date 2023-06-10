@@ -20,8 +20,7 @@ jobs:
           version: ${{matrix.node-version}}
       
       - name: Install dependencies 
-        run: npm i
-      - run: npm run dev
+        run: npm ci
   build-and-push:
     runs-on: ubuntu-latest
     needs: ['install-dep']
