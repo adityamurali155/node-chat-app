@@ -43,7 +43,7 @@ jobs:
         with:
           context: ./
           tags: adityamurali155/node-chat-app:${{github.sha}}
-          push: ${{ github.ref === 'refs/head/main' }}
+          push: ${{ github.ref == 'refs/head/main' }}
   update-manifest:
     runs-on: ubuntu-latest
     needs: ['build-and-push']
