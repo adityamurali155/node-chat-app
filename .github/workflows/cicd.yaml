@@ -58,4 +58,4 @@ jobs:
           sed -i "s#${{secrets.DOCKER_USER}}.*#${{secrets.DOCKER_USER}}/node-chat-app:${{github.sha}}#g" deployment.yaml
           git add -A
           git commit -m "Update image for ${{github.sha}}"
-      - run: git push https://${G_NAME}:${G_PASSWORD}@github.com/${G_NAME}/kubernetesmanifest.git HEAD:main
+      - run: git push origin main
