@@ -63,16 +63,17 @@ jobs:
           git push origin main
   kubescape:
     runs-on: ubuntu-latest
-    needs: [update-manifest]
     steps:
-      - name: Checkout to code repo
-        uses: actions/checkout@v3
-
-      - name: Install kubescape
-        run: curl -s https://raw.githubusercontent.com/kubescape/kubescape/master/install.sh | /bin/bash
-
-      - name: Kubescape scan
-        run: |
-          kubescape scan --enable-host-scan  --verbose
-          kubescape scan --exclude-namespaces kube-system,kube-public 
+    - uses: actions/checkout@v3
+    - uses: kubescape/github-action@main
+      continue-on-error: true
+      with:
+        format: sarif
+        outputFile: results.sarif
+        # Specify the Kubescape cloud account ID
+        account: ${{secrets.KUBESCAPE_ACCOUNT}}
+    - name: Upload Kubescape scan results to Github Code Scanning
+      uses: github/codeql-action/upload-sarif@v2
+      with:
+        sarif_file: results.sarif
 
