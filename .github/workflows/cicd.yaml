@@ -61,3 +61,18 @@ jobs:
           git add -A
           git commit -m "Update image for ${{ github.sha }}"
           git push origin main
+  kubescape:
+    runs-on: ubuntu-latest
+    needs: [update-manifest]
+    steps:
+      - name: Checkout to code repo
+        uses: actions/checkout@v3
+
+      - name: Install kubescape
+        run: curl -s https://raw.githubusercontent.com/kubescape/kubescape/master/install.sh | /bin/bash
+
+      - name: Kubescape scan
+        run: |
+          kubescape scan --enable-host-scan  --verbose
+          kubescape scan --exclude-namespaces kube-system,kube-public 
+
