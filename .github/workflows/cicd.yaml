@@ -43,7 +43,7 @@ jobs:
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           repository: ${{ secrets.DOCKER_USER }}/node-chat-app
-          tags: ${{ secrets.DOCKER_USER }}/node-chat-app:${{ github.sha }}
+          tags: ${{ github.sha }}
   # update-manifest:
   #   runs-on: ubuntu-latest
   #   needs: ['build-and-push']
